@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sams Mx</string>
+    <string name="enter_id_ad">Ingresar id del anuncio</string>
+    <string name="id_ad">Id anuncio</string>
+    <string name="accept">Aceptar</string>
+</resources>
