@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/israe/Desktop/Proyectos/Android/samsMx/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/israe/Desktop/Proyectos/Android/samsMx/app/src/main/res/drawable/ic_ad.xml" value="0.175" />
+        <entry key="..\:/Users/israe/Desktop/Proyectos/Android/samsMx/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/israe/Desktop/Proyectos/Android/samsMx/app/src/main/res/layout/activity_phone_number.xml" value="0.22" />
+        <entry key="..\:/Users/israe/Desktop/Proyectos/Android/samsMx/app/src/main/res/layout/data_ad.xml" value="0.22" />
       </map>
     </option>
   </component>

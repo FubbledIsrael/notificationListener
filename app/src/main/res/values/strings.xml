@@ -1,6 +1,36 @@
 <resources>
     <string name="app_name">Sams Mx</string>
     <string name="enter_id_ad">Enter id of ad</string>
-    <string name="id_ad">Id ad</string>
+    <string name="id_ad">Id ad (SIM 1)</string>
+    <string name="second_id_ad">Second id ad (SIM 2)</string>
+    <string name="cancel">Cancel</string>
     <string name="accept">Accept</string>
+    <string name="remove_id">Remove id</string>
+    <string name="ad_data">Ad data</string>
+    <string name="enter_name_device">Enter device name</string>
+    <string name="enter_different_id">Enter different ids</string>
+    <string name="does_support_dual_sim">System does not support dual sim</string>
+    <string name="dual_sim" translatable="false">Dual Sim</string>
+    <string name="add_id">Add id</string>
+    <string name="id">Id</string>
+    <string name="active">Active</string>
+    <string name="expired">Expired</string>
+    <string name="ad">Ad</string>
+    <string name="last_number">Last number</string>
+    <string name="next">Next</string>
+    <string name="number_ads">Number of ads</string>
+    <string name="call">Call</string>
+    <string name="message">Message</string>
+    <string name="whatsapp" translatable="false">WhatsApp</string>
+    <string name="number_register">Number register</string>
+    <string name="device_name">Device name</string>
+    <string name="city">City</string>
+    <string name="category">Category</string>
+    <string name="phoneMile">Phone Mile</string>
+    <string name="warning">Warning</string>
+    <string name="waiting">Waiting</string>
+    <string name="error">Error, please try again</string>
+    <string name="error_invalid_ad">Error invalid ad id</string>
+    <string name="notification_listener_service">Notification Service</string>
+    <string name="notification_listener_service_explanation">This application, you need permission to access notifications. Do you want to activate?</string>
 </resources>
