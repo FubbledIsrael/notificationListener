@@ -36,6 +36,7 @@ class PhoneNumberActivity : AppCompatActivity() {
     private var imageChangeBroadcastReceiver: ReceiveBroadcastReceiver? = null
     private lateinit var objectAd: List<Ad>
     private lateinit var registerAd: List<RegisterPhone>
+    private var phoneList: MutableList<String> = mutableListOf<String>()
     private lateinit var nameDevice: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,6 +72,7 @@ class PhoneNumberActivity : AppCompatActivity() {
                 registerAd[item].countCall = 0
                 registerAd[item].countMessage = 0
             }
+            phoneList.clear()
         }
 
         imageChangeBroadcastReceiver = ReceiveBroadcastReceiver(this)
@@ -105,7 +107,6 @@ class PhoneNumberActivity : AppCompatActivity() {
         override fun onReceive(context: Context?, intent: Intent) {
             val code = intent.getIntExtra("code", -1)
             val phone = intent.getStringExtra("phone").toString()
-            val cantMsg = intent.getIntExtra("cant_msg", 0)
             //val key = intent.getStringExtra("key")
             val priority = intent.getIntExtra("priority", -1)
             //val id = intent.getStringExtra("user")
@@ -114,18 +115,12 @@ class PhoneNumberActivity : AppCompatActivity() {
             if (isValidPhoneNumber(phone)) {
                 when(code){
                     InterceptedNotificationCode.WHATSAPP_CODE.value -> {
-                        if(cantMsg == 1){
-                            when(priority){
-                                InterceptedNotificationCode.WHATSAPP_CODE_PRIORITY_HIGH.value -> {
-                                    index = 0
-                                }
-                                InterceptedNotificationCode.WHATSAPP_CODE_PRIORITY_LOW.value -> {
-                                    if(phoneNumberActivity.objectAd.size > 1)
-                                        index = 1
-                                }
-                            }
-
-                        }
+                        index = 0;
+                        phoneNumberActivity.registerAd[0].countWhatsApp = phoneNumberActivity.registerAd[0].countWhatsApp + 1
+                    }
+                    InterceptedNotificationCode.WHATSAPP_BUSINESS_CODE.value -> {
+                        index = 1;
+                        phoneNumberActivity.registerAd[1].countWhatsApp = phoneNumberActivity.registerAd[1].countWhatsApp + 1
                     }
                     InterceptedNotificationCode.CALL_CODE.value -> {
 
@@ -136,14 +131,16 @@ class PhoneNumberActivity : AppCompatActivity() {
                 }
 
                 if(index != -1){
-                    val category = phoneNumberActivity.objectAd[index].category
-                    val city = phoneNumberActivity.objectAd[index].id_city.toString()
-                    phoneNumberActivity.registerAd[index].lastPhone = phone
+                    if(phoneNumberActivity.phoneList.indexOf(phone) == -1){
 
-                    if(code == InterceptedNotificationCode.WHATSAPP_CODE.value)
+                        val category = phoneNumberActivity.objectAd[index].category
+                        val city = phoneNumberActivity.objectAd[index].id_city.toString()
+                        phoneNumberActivity.registerAd[index].lastPhone = phone
+
                         phoneNumberActivity.registerAd[index].countWhatsApp = phoneNumberActivity.registerAd[index].countWhatsApp + 1
 
-                    registerPhone(phoneNumberActivity, phone, category, city)
+                        registerPhone(phoneNumberActivity, phone, category, city)
+                    }
                 }
             }
         }
@@ -161,6 +158,8 @@ class PhoneNumberActivity : AppCompatActivity() {
                         if(jsonResponse.error == 0){
                             phoneNumberActivity.refreshRecycleView()
                             phoneNumberActivity.savePreferences()
+
+                            phoneNumberActivity.phoneList.add(phone)
                         }
                     }catch (e: Exception){
                         Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show()
