@@ -1,36 +1,62 @@
 <resources>
-    <string name="app_name">Sams Mx</string>
+    <string name="app_name">Notification</string>
     <string name="enter_id_ad">Enter id of ad</string>
-    <string name="id_ad">Id ad (SIM 1)</string>
-    <string name="second_id_ad">Second id ad (SIM 2)</string>
+    <string name="empty_fields">Empty fields</string>
+    <string name="required_field">Required field</string>
+    <string name="id_ad">Id ad</string>
+    <string name="without_registration">Without registration</string>
     <string name="cancel">Cancel</string>
+    <string name="chat" translatable="false">Chat</string>
+    <string name="chats" translatable="false">Chats</string>
     <string name="accept">Accept</string>
+    <string name="registered">Registered</string>
+    <string name="registered_total">Registered total</string>
+    <string name="phone">Phone</string>
+    <string name="refresh">Refresh</string>
     <string name="remove_id">Remove id</string>
+    <string name="configuration">Configuration</string>
     <string name="ad_data">Ad data</string>
     <string name="enter_name_device">Enter device name</string>
-    <string name="enter_different_id">Enter different ids</string>
-    <string name="does_support_dual_sim">System does not support dual sim</string>
-    <string name="dual_sim" translatable="false">Dual Sim</string>
     <string name="add_id">Add id</string>
+    <string name="notice">Notice</string>
+    <string name="app">Application</string>
+    <string name="notice_dual_whatsapp">For the correct use of dual whatsapp, you must disable notifications in high priority.
+                                        Settings > Notifications > Use high priority notifications</string>
     <string name="id">Id</string>
     <string name="active">Active</string>
     <string name="expired">Expired</string>
+    <string name="verify_ad">Verify Ads</string>
     <string name="ad">Ad</string>
+    <string name="add_ad">Add an ad</string>
     <string name="last_number">Last number</string>
+    <string name="last_chat">Last chat</string>
+    <string name="last_update">Last update</string>
+    <string name="expires">Expires</string>
     <string name="next">Next</string>
     <string name="number_ads">Number of ads</string>
     <string name="call">Call</string>
     <string name="message">Message</string>
     <string name="whatsapp" translatable="false">WhatsApp</string>
+    <string name="dual_whatsapp" translatable="false">WhatsApp Dual</string>
+    <string name="business_whatsapp" translatable="false">WhatsApp Business</string>
     <string name="number_register">Number register</string>
     <string name="device_name">Device name</string>
+    <string name="device">Device</string>
+    <string name="error_exist">Already registered, try again</string>
+    <string name="verify_length">Verify field length</string>
     <string name="city">City</string>
     <string name="category">Category</string>
-    <string name="phoneMile">Phone Mile</string>
+    <string name="record">Record</string>
+    <string name="saved">Saved</string>
+    <string name="update">Update</string>
+    <string name="updated">Updated</string>
     <string name="warning">Warning</string>
     <string name="waiting">Waiting</string>
     <string name="error">Error, please try again</string>
     <string name="error_invalid_ad">Error invalid ad id</string>
     <string name="notification_listener_service">Notification Service</string>
     <string name="notification_listener_service_explanation">This application, you need permission to access notifications. Do you want to activate?</string>
+    <string name="empty_field">Empty field</string>
+    <string name="edit">Edit</string>
+    <string name="save">Save</string>
 </resources>
