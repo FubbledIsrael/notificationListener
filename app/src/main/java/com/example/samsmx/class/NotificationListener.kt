@@ -21,12 +21,8 @@ class NotificationListener: NotificationListenerService(){
         if (pack == ApplicationPackageName.WHATSAPP_PACK_NAME.value || pack == ApplicationPackageName.WHATSAPP_BUSINESS_PACK_NAME.value) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 val intent = Intent("com.example.samsmx")
-                val code = if(pack == ApplicationPackageName.WHATSAPP_PACK_NAME.value) InterceptedNotificationCode.WHATSAPP_CODE else InterceptedNotificationCode.WHATSAPP_BUSINESS_CODE
+                val code = if(pack == ApplicationPackageName.WHATSAPP_PACK_NAME.value) InterceptedNotificationCode.WHATSAPP_CODE.value else InterceptedNotificationCode.WHATSAPP_BUSINESS_CODE.value
                 intent.putExtra("phone", sbn.notification.extras.getString(Notification.EXTRA_TITLE))
-                intent.putExtra("cant_msg", sbn.notification.number)
-                intent.putExtra("key", sbn.key)
-                intent.putExtra("priority", sbn.notification.priority)
-                intent.putExtra("user", sbn.user.hashCode())
                 intent.putExtra("code", code)
                 sendBroadcast(intent)
             }

@@ -106,9 +106,6 @@ class PhoneNumberActivity : AppCompatActivity() {
         override fun onReceive(context: Context?, intent: Intent) {
             val code = intent.getIntExtra("code", -1)
             val phone = intent.getStringExtra("phone").toString()
-            //val key = intent.getStringExtra("key")
-            //val priority = intent.getIntExtra("priority", -1)
-            //val id = intent.getStringExtra("user")
             var index = -1
 
             if (isValidPhoneNumber(phone)) {
