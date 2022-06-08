@@ -35,8 +35,10 @@ class MainActivity : AppCompatActivity() {
 
         try {
             val objectAd: List<Ad> = Gson().fromJson(storage.getValueString(KeyAd.DataJson.value), Array<Ad>::class.java).toList()
-            if(!objectAd.isNullOrEmpty())
+            if(objectAd.isNotEmpty()) {
                 startActivity(Intent(this, PhoneNumberActivity::class.java))
+                finish()
+            }
         }catch (e: Exception){ }
 
         binding.btnEnter.setOnClickListener {
@@ -156,6 +158,7 @@ class MainActivity : AppCompatActivity() {
                                                             val jsonRegisterAd = listOf(RegisterPhone(getString(R.string.waiting), 0,0,0), RegisterPhone(getString(R.string.waiting), 0,0,0))
                                                             savePreferences(nameDevice, jsonResponse.data.filterNotNull(), jsonRegisterAd)
                                                             startActivity(Intent(this, PhoneNumberActivity::class.java))
+                                                            finish()
                                                             dialog3.dismiss()
                                                         }
                                                         .show()
@@ -184,6 +187,7 @@ class MainActivity : AppCompatActivity() {
                                             val jsonRegisterAd = listOf(RegisterPhone(getString(R.string.waiting), 0,0,0))
                                             savePreferences(nameDevice, jsonResponse.data.filterNotNull(), jsonRegisterAd)
                                             startActivity(Intent(this, PhoneNumberActivity::class.java))
+                                            finish()
                                             dialog.dismiss()
                                         }
                                         .setCancelable(false)

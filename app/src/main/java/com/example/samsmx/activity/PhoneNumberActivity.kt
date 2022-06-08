@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.toolbox.StringRequest
 import com.example.samsmx.R
@@ -36,7 +35,7 @@ class PhoneNumberActivity : AppCompatActivity() {
     private var imageChangeBroadcastReceiver: ReceiveBroadcastReceiver? = null
     private lateinit var objectAd: List<Ad>
     private lateinit var registerAd: List<RegisterPhone>
-    private var phoneList: MutableList<String> = mutableListOf<String>()
+    private var phoneList: MutableList<String> = mutableListOf()
     private lateinit var nameDevice: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -108,19 +107,17 @@ class PhoneNumberActivity : AppCompatActivity() {
             val code = intent.getIntExtra("code", -1)
             val phone = intent.getStringExtra("phone").toString()
             //val key = intent.getStringExtra("key")
-            val priority = intent.getIntExtra("priority", -1)
+            //val priority = intent.getIntExtra("priority", -1)
             //val id = intent.getStringExtra("user")
             var index = -1
 
             if (isValidPhoneNumber(phone)) {
                 when(code){
                     InterceptedNotificationCode.WHATSAPP_CODE.value -> {
-                        index = 0;
-                        phoneNumberActivity.registerAd[0].countWhatsApp = phoneNumberActivity.registerAd[0].countWhatsApp + 1
+                        index = 0
                     }
                     InterceptedNotificationCode.WHATSAPP_BUSINESS_CODE.value -> {
-                        index = 1;
-                        phoneNumberActivity.registerAd[1].countWhatsApp = phoneNumberActivity.registerAd[1].countWhatsApp + 1
+                        index = 1
                     }
                     InterceptedNotificationCode.CALL_CODE.value -> {
 
@@ -210,10 +207,16 @@ class PhoneNumberActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         storage.wipe()
+        phoneList.clear()
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     override fun onSupportNavigateUp(): Boolean {
         storage.wipe()
+        phoneList.clear()
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
         return super.onSupportNavigateUp()
     }
 }
