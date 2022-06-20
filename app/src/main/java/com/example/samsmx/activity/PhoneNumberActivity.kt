@@ -65,7 +65,7 @@ class PhoneNumberActivity : AppCompatActivity() {
         }
 
         binding.btnRefresh.setOnClickListener {
-            for(item in 0..registerAd.size){
+            for(item in registerAd.indices){
                 registerAd[item].lastPhone = getString(R.string.waiting)
                 registerAd[item].countWhatsApp = 0
                 registerAd[item].countCall = 0
