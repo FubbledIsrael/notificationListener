@@ -34,8 +34,6 @@ class AdapterDataAd(private val listAd: List<Ad>, private val listRegister: List
 
         private var tvLastPhone: TextView = itemView.findViewById(R.id.tv_last_phone)
         private var tvWhatsApp: TextView = itemView.findViewById(R.id.tv_whatsapp)
-        private var tvCall: TextView = itemView.findViewById(R.id.tv_call)
-        private var tvMessage: TextView = itemView.findViewById(R.id.tv_message)
 
         fun setData(objectAd: Ad, registerAd: RegisterPhone){
             if(objectAd.status == 1) {
@@ -54,8 +52,6 @@ class AdapterDataAd(private val listAd: List<Ad>, private val listRegister: List
 
             tvLastPhone.text = registerAd.lastPhone
             tvWhatsApp.text = registerAd.countWhatsApp.toString()
-            tvCall.text = registerAd.countCall.toString()
-            tvMessage.text = registerAd.countMessage.toString()
         }
     }
 }

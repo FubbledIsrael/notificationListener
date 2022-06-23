@@ -67,26 +67,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnAddAd.setOnClickListener {
-            if(isSimSupport(this)){
-                if(binding.layoutInputSecondId.isVisible) {
-                    binding.etSecondId.text = null
-                    binding.layoutInputSecondId.visibility = View.GONE
-                    binding.btnAddAd.text = getString(R.string.add_id)
-                }
-                else {
-                    binding.layoutInputSecondId.visibility = View.VISIBLE
-                    binding.btnAddAd.text = getString(R.string.remove_id)
-                }
-            }else{
-                MaterialAlertDialogBuilder(this)
-                    .setTitle(getString(R.string.dual_sim))
-                    .setMessage(getString(R.string.does_support_dual_sim))
-                    .setPositiveButton(resources.getString(R.string.accept)) { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                    .setCancelable(false)
-                    .show()
+
+            if(binding.layoutInputSecondId.isVisible) {
+                binding.etSecondId.text = null
+                binding.layoutInputSecondId.visibility = View.GONE
+                binding.btnAddAd.text = getString(R.string.add_id)
             }
+            else {
+                binding.layoutInputSecondId.visibility = View.VISIBLE
+                binding.btnAddAd.text = getString(R.string.remove_id)
+                }
         }
     }
 
@@ -155,7 +145,7 @@ class MainActivity : AppCompatActivity() {
                                                             dialog3.dismiss()
                                                         }
                                                         .setPositiveButton(resources.getString(R.string.accept)) { dialog3, _ ->
-                                                            val jsonRegisterAd = listOf(RegisterPhone(getString(R.string.waiting), 0,0,0), RegisterPhone(getString(R.string.waiting), 0,0,0))
+                                                            val jsonRegisterAd = listOf(RegisterPhone(getString(R.string.waiting), 0), RegisterPhone(getString(R.string.waiting), 0))
                                                             savePreferences(nameDevice, jsonResponse.data.filterNotNull(), jsonRegisterAd)
                                                             startActivity(Intent(this, PhoneNumberActivity::class.java))
                                                             finish()
@@ -184,7 +174,7 @@ class MainActivity : AppCompatActivity() {
                                             dialog.dismiss()
                                         }
                                         .setPositiveButton(resources.getString(R.string.accept)) { dialog, _ ->
-                                            val jsonRegisterAd = listOf(RegisterPhone(getString(R.string.waiting), 0,0,0))
+                                            val jsonRegisterAd = listOf(RegisterPhone(getString(R.string.waiting), 0))
                                             savePreferences(nameDevice, jsonResponse.data.filterNotNull(), jsonRegisterAd)
                                             startActivity(Intent(this, PhoneNumberActivity::class.java))
                                             finish()
@@ -219,11 +209,6 @@ class MainActivity : AppCompatActivity() {
         )
 
         VolleySingleton.getInstance(this).addToRequestQueue(stringRequest)
-    }
-
-    private fun isSimSupport(context: Context): Boolean {
-        val tm = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-        return tm.simState != TelephonyManager.SIM_STATE_ABSENT
     }
 
     private fun savePreferences(nameDevice: String, ad: List<Ad>, register: List<RegisterPhone>){

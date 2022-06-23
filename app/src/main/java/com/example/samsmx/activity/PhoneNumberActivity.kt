@@ -68,10 +68,11 @@ class PhoneNumberActivity : AppCompatActivity() {
             for(item in registerAd.indices){
                 registerAd[item].lastPhone = getString(R.string.waiting)
                 registerAd[item].countWhatsApp = 0
-                registerAd[item].countCall = 0
-                registerAd[item].countMessage = 0
             }
             phoneList.clear()
+            refreshRecycleView()
+
+            savePreferences()
         }
 
         imageChangeBroadcastReceiver = ReceiveBroadcastReceiver(this)
@@ -126,11 +127,10 @@ class PhoneNumberActivity : AppCompatActivity() {
 
                 if(index != -1){
                     if(phoneNumberActivity.phoneList.indexOf(phone) == -1){
-
                         val category = phoneNumberActivity.objectAd[index].category
                         val city = phoneNumberActivity.objectAd[index].id_city.toString()
-                        phoneNumberActivity.registerAd[index].lastPhone = phone
 
+                        phoneNumberActivity.registerAd[index].lastPhone = phone
                         phoneNumberActivity.registerAd[index].countWhatsApp = phoneNumberActivity.registerAd[index].countWhatsApp + 1
 
                         registerPhone(phoneNumberActivity, phone, category, city)
@@ -149,12 +149,15 @@ class PhoneNumberActivity : AppCompatActivity() {
                 { response ->
                     try {
                         val jsonResponse = Gson().fromJson(response , ResponseRecordPhone::class.java)
-                        if(jsonResponse.error == 0){
+
+                        if(jsonResponse.error == 0 || jsonResponse.error == 2){
+
                             phoneNumberActivity.refreshRecycleView()
                             phoneNumberActivity.savePreferences()
 
                             phoneNumberActivity.phoneList.add(phone)
                         }
+
                     }catch (e: Exception){
                         Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show()
                     }
@@ -205,6 +208,7 @@ class PhoneNumberActivity : AppCompatActivity() {
         super.onBackPressed()
         storage.wipe()
         phoneList.clear()
+        savePreferences()
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
