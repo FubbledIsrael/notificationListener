@@ -33,8 +33,8 @@ import java.util.*
 class PhoneNumberActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPhoneNumberBinding
     private var imageChangeBroadcastReceiver: ReceiveBroadcastReceiver? = null
-    private lateinit var objectAd: List<Ad>
-    private lateinit var registerAd: List<RegisterPhone>
+    private lateinit var objectAd: MutableList<Ad>
+    private lateinit var registerAd: MutableList<RegisterPhone>
     private var phoneList: MutableList<String> = mutableListOf()
     private lateinit var nameDevice: String
 
@@ -46,18 +46,7 @@ class PhoneNumberActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        try {
-            loadPreferences()
-            binding.tvNameDevice.text = nameDevice
-            binding.recycleView.layoutManager = LinearLayoutManager(this)
-
-            refreshRecycleView()
-        }catch (e: Exception){
-            storage.wipe()
-            Snackbar.make(binding.linearlayout, R.string.error , Snackbar.LENGTH_SHORT).show()
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }
+        binding.recycleView.layoutManager = LinearLayoutManager(this)
 
         if (!isNotificationServiceEnabled()) {
             val enableNotificationListenerAlertDialog: AlertDialog = buildNotificationServiceAlertDialog()
@@ -70,9 +59,9 @@ class PhoneNumberActivity : AppCompatActivity() {
                 registerAd[item].countWhatsApp = 0
             }
             phoneList.clear()
-            refreshRecycleView()
 
             savePreferences()
+            refreshRecycleView()
         }
 
         imageChangeBroadcastReceiver = ReceiveBroadcastReceiver(this)
@@ -126,11 +115,14 @@ class PhoneNumberActivity : AppCompatActivity() {
                 }
 
                 if(index != -1){
+                    phoneNumberActivity.registerAd[index].lastPhone = phone
+
                     if(phoneNumberActivity.phoneList.indexOf(phone) == -1){
+                        phoneNumberActivity.phoneList.add(phone)
+
                         val category = phoneNumberActivity.objectAd[index].category
                         val city = phoneNumberActivity.objectAd[index].id_city.toString()
 
-                        phoneNumberActivity.registerAd[index].lastPhone = phone
                         phoneNumberActivity.registerAd[index].countWhatsApp = phoneNumberActivity.registerAd[index].countWhatsApp + 1
 
                         registerPhone(phoneNumberActivity, phone, category, city)
@@ -150,12 +142,9 @@ class PhoneNumberActivity : AppCompatActivity() {
                     try {
                         val jsonResponse = Gson().fromJson(response , ResponseRecordPhone::class.java)
 
-                        if(jsonResponse.error == 0 || jsonResponse.error == 2){
-
-                            phoneNumberActivity.refreshRecycleView()
+                        if(jsonResponse.error == 0 || jsonResponse.error == 2) {
                             phoneNumberActivity.savePreferences()
-
-                            phoneNumberActivity.phoneList.add(phone)
+                            phoneNumberActivity.refreshRecycleView()
                         }
 
                     }catch (e: Exception){
@@ -188,8 +177,8 @@ class PhoneNumberActivity : AppCompatActivity() {
 
     private fun loadPreferences(){
         nameDevice = storage.getValueString(KeyAd.DeviceName.value).toString()
-        objectAd = Gson().fromJson(storage.getValueString(KeyAd.DataJson.value), Array<Ad>::class.java).toList()
-        registerAd = Gson().fromJson(storage.getValueString(KeyAd.RegisterJson.value), Array<RegisterPhone>::class.java).toList()
+        objectAd = Gson().fromJson(storage.getValueString(KeyAd.DataJson.value), Array<Ad>::class.java).toList() as MutableList<Ad>
+        registerAd = Gson().fromJson(storage.getValueString(KeyAd.RegisterJson.value), Array<RegisterPhone>::class.java).toList() as MutableList<RegisterPhone>
     }
 
     private fun savePreferences(){
@@ -204,19 +193,37 @@ class PhoneNumberActivity : AppCompatActivity() {
         binding.recycleView.adapter = adapterAd
     }
 
+    override fun onPause() {
+        super.onPause()
+        savePreferences()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        try {
+            loadPreferences()
+            binding.tvNameDevice.text = nameDevice
+
+            refreshRecycleView()
+        }catch (e: Exception){
+            storage.wipe()
+            Snackbar.make(binding.linearlayout, R.string.error , Snackbar.LENGTH_SHORT).show()
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
+    }
+
     override fun onBackPressed() {
         super.onBackPressed()
         storage.wipe()
-        phoneList.clear()
-        savePreferences()
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
     }
 
     override fun onSupportNavigateUp(): Boolean {
         storage.wipe()
-        phoneList.clear()
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
         return super.onSupportNavigateUp()
     }

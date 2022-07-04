@@ -29,6 +29,8 @@
     <string name="phoneMile">Phone Mile</string>
     <string name="warning">Warning</string>
     <string name="waiting">Waiting</string>
+    <string name="logout">logout</string>
+    <string name="are_you_sure">are you sure?</string>
     <string name="error">Error, please try again</string>
     <string name="error_invalid_ad">Error invalid ad id</string>
     <string name="notification_listener_service">Notification Service</string>

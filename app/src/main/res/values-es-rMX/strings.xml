@@ -32,4 +32,6 @@
     <string name="device_name">Nombre del dispositivo</string>
     <string name="enter_name_device">Ingresar nombre de dispositivo</string>
     <string name="remove_id">Remover id</string>
+    <string name="logout">Cerrar Sesion</string>
+    <string name="are_you_sure">Estas seguro?</string>
 </resources>
