@@ -6,13 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
-    android:id="@+id/dataAdContainer"
+    android:id="@+id/containerDataAdFragment"
     tools:context=".dataAdModule.view.DataAdFragment">
 
     <include
         android:id="@+id/cardDataAd"
-        layout="@layout/data_ad_layout"
-        android:layout_width="0dp"
+        layout="@layout/data_ad_card"
+        android:layout_width="@dimen/common_padding_none"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_padding_min"
         android:layout_marginBottom="@dimen/common_padding_min_xs"
@@ -23,16 +23,13 @@
 
     <include
         android:id="@+id/cardRecordAd"
-        layout="@layout/record_layout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        layout="@layout/record_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_padding_min"
-        android:layout_marginBottom="@dimen/common_padding_min_xs"
+        android:layout_marginBottom="@dimen/common_padding_middle"
         android:layout_marginHorizontal="@dimen/common_padding_min"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardDataAd"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/cardDataAd"/>
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progressBar"

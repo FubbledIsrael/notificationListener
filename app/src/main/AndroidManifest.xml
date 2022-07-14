@@ -2,38 +2,25 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.samsmx">
+    package="com.smart.notification">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <queries>
-        <intent>
-            <action android:name="android.intente.action.DIAL" />
-        </intent>
-        <intent>
-            <action android:name="android.intente.action.VIEW" />
-
-            <data android:scheme="https" />
-
-            <category android:name="android.intent.category.BROWSABLE" />
-        </intent>
-    </queries>
-
     <application
-        android:name=".Application"
+        android:name="com.smart.notification.Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SamsMx"
+        android:theme="@style/Theme.NotificationApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
 
         <activity
-            android:name=".mainModule.view.MainActivity"
+            android:name="com.smart.notification.mainModule.view.MainActivity"
             android:screenOrientation="fullSensor"
             android:exported="true">
             <intent-filter>
@@ -43,7 +30,7 @@
         </activity>
 
         <service
-            android:name=".common.service.NotificationListener"
+            android:name="com.smart.notification.common.service.NotificationListener"
             android:exported="false"
             android:label="@string/notification_listener_service"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
@@ -58,4 +45,15 @@
                 android:value="ongoing|silent" />
         </service>
     </application>
+
+    <queries>
+        <intent>
+            <action android:name="android.intente.action.DIAL" />
+        </intent>
+        <intent>
+            <action android:name="android.intente.action.VIEW" />
+            <data android:scheme="https" />
+            <category android:name="android.intent.category.BROWSABLE" />
+        </intent>
+    </queries>
 </manifest>

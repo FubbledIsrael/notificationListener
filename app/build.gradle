@@ -8,7 +8,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.example.samsmx"
+        applicationId "com.smart.notification"
         minSdk 21
         targetSdk 31
         versionCode 1
@@ -37,15 +37,15 @@ android {
         jvmTarget = '1.8'
     }
 
-    namespace 'com.example.samsmx'
+    namespace 'com.smart.notification'
 }
 
-def core_version = "1.7.0"
-def appcompat_version = "1.4.1"
-def material_version = "1.6.0"
+def core_version = "1.8.0"
+def appcompat_version = "1.4.2"
+def material_version = "1.6.1"
 def constraint_layout_version = "2.1.4"
 def room_version = "2.4.2"
-def lifecycle_version = "2.4.1"
+def lifecycle_version = "2.5.0"
 def coroutines_version = "1.6.1"
 def gson_version = "2.9.0"
 def glide_version = "4.13.2"
