@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="item_card">260dp</dimen>
-    <dimen name="item_card_height">200dp</dimen>
+    <dimen name="common_item_logo">108dp</dimen>
+    <dimen name="common_item_card">260dp</dimen>
+    <dimen name="common_item_card_height">200dp</dimen>
     <dimen name="common_padding_none">0dp</dimen>
+    <dimen name="common_padding_one">1dp</dimen>
     <dimen name="common_padding_min_xs">4dp</dimen>
     <dimen name="common_padding_min">8dp</dimen>
+    <dimen name="common_size_min">10sp</dimen>
     <dimen name="common_padding_default">16dp</dimen>
     <dimen name="common_padding_middle">24dp</dimen>
 </resources>
