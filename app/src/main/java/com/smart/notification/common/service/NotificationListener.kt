@@ -6,7 +6,6 @@ import android.os.IBinder
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import com.smart.notification.common.utils.ApplicationPackageName
-import com.smart.notification.common.utils.Constants
 
 /**
  * Project: NotificationApp
@@ -28,7 +27,7 @@ class NotificationListener: NotificationListenerService(){
             intent.putExtra("phone", sbn.notification.extras.getString(Notification.EXTRA_TITLE))
             intent.putExtra("package", pack)
             intent.putExtra("time", System.currentTimeMillis())
-            intent.putExtra("post", Constants.ON_STATUS)
+            //intent.putExtra("post", Constants.ON_STATUS)
             sendBroadcast(intent)
         }
     }

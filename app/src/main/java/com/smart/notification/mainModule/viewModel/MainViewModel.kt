@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.smart.notification.common.entities.AdEntity
 import com.smart.notification.common.entities.RecordEntity
 import com.smart.notification.common.utils.Constants
-import com.smart.notification.common.utils.getPackageByInt
+import com.smart.notification.common.utils.getPackageByCode
 import com.smart.notification.model.ModelRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -49,7 +49,7 @@ class MainViewModel: ViewModel() {
     fun saveAd(ad: AdEntity){
         executeAction{
             repository.saveAd(ad)
-            repository.saveApplication(getPackageByInt(ad.app).value, ad.id)
+            repository.saveApplication(getPackageByCode(ad.app).value, ad.id)
         }
     }
 
@@ -62,7 +62,7 @@ class MainViewModel: ViewModel() {
     fun removeAd(ad: AdEntity){
         executeAction{
             repository.removeAd(ad)
-            repository.removeApplication(getPackageByInt(ad.app).value)
+            repository.removeApplication(getPackageByCode(ad.app).value)
             repository.removeRecordAd(ad.id)
         }
     }

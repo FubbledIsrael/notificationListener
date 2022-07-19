@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
 import com.smart.notification.R
 import com.smart.notification.common.entities.AdEntity
-import com.smart.notification.common.utils.getNotificationAppByName
+import com.smart.notification.common.utils.getNotificationByName
 import com.smart.notification.databinding.AdLayoutBinding
 
 /**
@@ -48,7 +48,7 @@ class AdDialog(private val onSubmitClickListener: (AdEntity) -> Unit): DialogFra
                 mBinding.tilApplication.error = getString(R.string.empty_field)
 
             if(etId.trim().isNotEmpty() && etApplication.trim().isNotEmpty()) {
-                val ad = AdEntity(id = etId.toInt(), app = getNotificationAppByName(etApplication).ordinal)
+                val ad = AdEntity(id = etId.toInt(), app = getNotificationByName(etApplication).ordinal)
                 onSubmitClickListener.invoke(ad)
                 dismiss()
             }

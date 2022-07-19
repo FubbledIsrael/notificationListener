@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.smart.notification.R
 import com.smart.notification.common.entities.AdEntity
-import com.smart.notification.common.utils.getNotificationAppByInt
+import com.smart.notification.common.utils.getNotificationByCode
 import com.smart.notification.databinding.AdCardBinding
 
 /**
@@ -53,7 +53,7 @@ class AdListAdapter(private var listener: OnClickListenerAd) : ListAdapter<AdEnt
             val drawable = if (ad.status == 1) R.drawable.ic_circle_check else R.drawable.ic_circle_warning
             val idString = "#" + ad.id.toString()
 
-            mBinding.tvApplication.text = mContext.getString(getNotificationAppByInt(ad.app).id)
+            mBinding.tvApplication.text = mContext.getString(getNotificationByCode(ad.app).id)
             mBinding.icExpired.setImageResource(drawable)
             mBinding.tvId.text = idString
             mBinding.tvCity.text = ad.city

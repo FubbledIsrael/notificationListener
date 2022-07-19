@@ -9,7 +9,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.smart.notification.R
 import com.smart.notification.common.adapters.RecordListAdapter
 import com.smart.notification.common.utils.Constants
-import com.smart.notification.common.utils.hideKeyboard
 import com.smart.notification.dataAdModule.viewModel.DataAdViewModel
 import com.smart.notification.databinding.FragmentDataAdBinding
 import com.smart.notification.mainModule.view.MainActivity
@@ -130,7 +129,6 @@ class DataAdFragment : Fragment(R.layout.fragment_data_ad) {
     }
 
     override fun onDestroyView() {
-        hideKeyboard(mActivity!!, requireView())
         super.onDestroyView()
     }
 
