@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="primaryLightColor">#76d275</color>
+    <color name="primaryColor">#43a047</color>
+    <color name="primaryDarkColor">#00701a</color>
+    <color name="secondaryLightColor">#ff6434</color>
+    <color name="secondaryColor">#dd2c00</color>
+    <color name="secondaryDarkColor">#a30000</color>
+
     <color name="yellow">#FFFF00</color>
     <color name="fuchsia">#FF00FF</color>
     <color name="red">#FF0000</color>
     <color name="silver">#C0C0C0</color>
-    <color name="gray">#808080</color>
+    <color name="gray">#D1D0D0</color>
     <color name="olive">#808000</color>
     <color name="purple">#800080</color>
     <color name="maroon">#800000</color>
     <color name="aqua">#00FFFF</color>
     <color name="lime">#0BA60B</color>
     <color name="teal">#008080</color>
-    <color name="green">#008000</color>
+    <color name="green">#289D28</color>
     <color name="blue">#0000FF</color>
     <color name="navy">#000080</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_t">#99FFFFFF</color>
 </resources>

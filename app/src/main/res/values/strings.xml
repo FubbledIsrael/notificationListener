@@ -1,38 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Sams Mx</string>
-    <string name="enter_id_ad">Enter id of ad</string>
-    <string name="id_ad">Id ad (SIM 1)</string>
-    <string name="second_id_ad">Second id ad (SIM 2)</string>
+    <string name="app_name">Notification</string>
+    <string name="edit">Edit</string>
+    <string name="clean">Clean</string>
+    <string name="n_a" translatable="false">N/A</string>
+    <string name="add">Add</string>
+    <string name="whatsapp" translatable="false">WhatsApp</string>
+    <string name="dual_whatsapp" translatable="false">WhatsApp Dual</string>
+    <string name="business_whatsapp" translatable="false">WhatsApp Business</string>
+    <string name="city">City</string>
+    <string name="classification">Classification</string>
+    <string name="last_chat">Last chat</string>
+    <string name="chats" translatable="false">Chats</string>
+    <string name="enter_id">Enter id</string>
+    <string name="required_field">Required field</string>
+    <string name="id" translatable="false">Id</string>
     <string name="cancel">Cancel</string>
     <string name="accept">Accept</string>
-    <string name="remove_id">Remove id</string>
-    <string name="ad_data">Ad data</string>
-    <string name="enter_name_device">Enter device name</string>
-    <string name="enter_different_id">Enter different ids</string>
-    <string name="does_support_dual_sim">System does not support dual sim</string>
-    <string name="dual_sim" translatable="false">Dual Sim</string>
-    <string name="add_id">Add id</string>
-    <string name="id">Id</string>
+    <string name="phone">Phone</string>
+    <string name="remove">Remove</string>
+    <string name="configuration">Configuration</string>
+    <string name="settings">Settings</string>
+    <string name="data">Data</string>
+    <string name="notice">Notice</string>
+    <string name="app">Application</string>
     <string name="active">Active</string>
     <string name="expired">Expired</string>
+    <string name="verify">Verify</string>
     <string name="ad">Ad</string>
     <string name="last_number">Last number</string>
+    <string name="last_update">Last update</string>
     <string name="next">Next</string>
-    <string name="number_ads">Number of ads</string>
     <string name="call">Call</string>
     <string name="message">Message</string>
-    <string name="whatsapp" translatable="false">WhatsApp</string>
-    <string name="number_register">Number register</string>
     <string name="device_name">Device name</string>
-    <string name="city">City</string>
-    <string name="category">Category</string>
-    <string name="phoneMile">Phone Mile</string>
+    <string name="device">Device</string>
+    <string name="device_saved">Device saved</string>
+    <string name="device_updated">Device updated</string>
+    <string name="ad_saved">Ad saved</string>
+    <string name="ad_updated">Ad updated</string>
+    <string name="ad_removed">Ad removed</string>
+    <string name="phone_saved">Phone saved</string>
+    <string name="phone_updated">Phone updated</string>
+    <string name="phone_removed">Phone removed</string>
+    <string name="record_removed">Record removed</string>
+    <string name="verify_field_length">Verify field length</string>
+    <string name="record">Record</string>
+    <string name="save">Save</string>
+    <string name="update">Update</string>
+    <string name="error_exists">Error, already exists</string>
     <string name="warning">Warning</string>
     <string name="waiting">Waiting</string>
-    <string name="logout">logout</string>
-    <string name="are_you_sure">are you sure?</string>
-    <string name="error">Error, please try again</string>
-    <string name="error_invalid_ad">Error invalid ad id</string>
+    <string name="refresh">Refresh</string>
+    <string name="saved">Saved</string>
+    <string name="setup">Setup</string>
+    <string name="updated">Updated</string>
+    <string name="removed">Removed</string>
+    <string name="change_device_name">Change device name</string>
+    <string name="you_sure_remove">Are you sure you want to remove it?</string>
+    <string name="error">Error, try again</string>
+    <string name="error_id_invalid">Error, id is invalid</string>
+    <string name="clean_message">Are you sure to delete the record?</string>
     <string name="notification_listener_service">Notification Service</string>
     <string name="notification_listener_service_explanation">This application, you need permission to access notifications. Do you want to activate?</string>
+    <string name="empty_field">Empty field</string>
+    <string name="information">Information</string>
+    <string name="no_ads">No Ads</string>
+
+    <string-array name="applications">
+        <item>@string/whatsapp</item>
+        <item>@string/business_whatsapp</item>
+    </string-array>
 </resources>
