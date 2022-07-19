@@ -1,9 +1,11 @@
 package com.smart.notification.common.entities
 
+import android.annotation.SuppressLint
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.sql.Timestamp
+import java.text.SimpleDateFormat
 import java.util.*
 
 /**
@@ -21,8 +23,14 @@ data class RecordEntity(
     var id_ad: Int = 0,
     var status: Int = 0){
 
+    @SuppressLint("SimpleDateFormat")
     fun getDateString(): String {
-        val stamp = Timestamp(this.time)
-        return Date(stamp.time).toString()
+        return try {
+            val format = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+            val netDate = Date(this.time)
+            format.format(netDate)
+        } catch (e: Exception) {
+            e.toString()
+        }
     }
 }
