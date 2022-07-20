@@ -25,7 +25,7 @@ class VolleyAPI constructor(context: Context) {
     }
 
     private val requestQueue: RequestQueue by lazy{
-        Volley.newRequestQueue(context.applicationContext)
+        Volley.newRequestQueue(context)
     }
 
     fun<T> addToRequestQueue(request: Request<T>){

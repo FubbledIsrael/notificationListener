@@ -73,6 +73,12 @@ class MainViewModel: ViewModel() {
         }
     }
 
+    fun removeRecordAd(id: Int){
+        executeAction{
+            repository.removeRecordAd(id)
+        }
+    }
+
     private fun executeAction(block: suspend () -> Unit): Job {
         return  viewModelScope.launch {
             progressBar.value = Constants.SHOW

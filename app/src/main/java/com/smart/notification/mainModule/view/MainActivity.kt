@@ -22,8 +22,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.smart.notification.Application
-import com.smart.notification.common.adapters.AdListAdapter
-import com.smart.notification.common.adapters.OnClickListenerAd
+import com.smart.notification.mainModule.adapter.AdListAdapter
+import com.smart.notification.mainModule.adapter.OnClickListenerAd
 import com.smart.notification.common.entities.AdEntity
 import com.smart.notification.common.entities.RecordEntity
 import com.smart.notification.common.service.AdDialog
@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
 
     //Setup
     private fun init() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(Constants.HIDE)
 
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
 
         mAdapter = AdListAdapter(this)
         mBinding.recycleView.apply {
-            setHasFixedSize(false)
+            setHasFixedSize(Constants.HIDE)
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter
         }
@@ -171,7 +171,7 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
                 startActivity(Intent(SettingsNotificationListener.ACTION_NOTIFICATION_LISTENER_SETTINGS.value))
                 dialog.dismiss()
             }
-            .setCancelable(false)
+            .setCancelable(Constants.HIDE)
             .show()
     }
 
@@ -209,12 +209,13 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
 
         override fun onReceive(context: Context?, intent: Intent) {
             val phone = intent.getStringExtra(Parameter.PHONE_PARAM.value).toString()
+            val post = intent.getIntExtra(Parameter.POST_PARAM.value, Constants.OFF_STATUS)
+            val pack = intent.getStringExtra(Parameter.PACKAGE_PARAM.value).toString()
+            val id = activity.mMainViewModel.getApplication(pack)
 
             if (isValidPhoneNumber(phone)) {
-                val pack = intent.getStringExtra(Parameter.PACKAGE_PARAM.value).toString()
                 val time = intent.getLongExtra(Parameter.TIME_PARAM.value, 0L)
 
-                val id = activity.mMainViewModel.getApplication(pack)
                 if(id != 0) {
                     val record = RecordEntity(
                         phone = phone,
@@ -227,6 +228,9 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
                     activity.registerPhone(record, device!!)
                 }
             }
+            else if(post == Constants.ON_STATUS)
+                if(id != 0)
+                    activity.mMainViewModel.removeRecordAd(id)
         }
     }
 
@@ -260,7 +264,7 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
                             .setNegativeButton(R.string.cancel) { dialog, _ ->
                                 dialog.dismiss()
                             }
-                            .setCancelable(false)
+                            .setCancelable(Constants.HIDE)
                             .show()
                     }
                     else
@@ -361,7 +365,7 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
             .setNegativeButton(R.string.cancel){    dialog, _ ->
                 dialog.dismiss()
             }
-            .setCancelable(false)
+            .setCancelable(Constants.HIDE)
             .show()
     }
 }

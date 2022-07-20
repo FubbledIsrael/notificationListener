@@ -5,11 +5,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/common_padding_min"
-    android:layout_marginBottom="@dimen/common_padding_min_xs"
-    android:layout_marginHorizontal="@dimen/common_padding_min"
     app:cardElevation="@dimen/common_padding_min"
     app:cardCornerRadius="@dimen/common_padding_min"
+    android:layout_marginHorizontal="@dimen/common_padding_min"
+    android:layout_marginVertical="@dimen/common_padding_min"
     android:id="@+id/containerAdCard">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,8 +21,6 @@
             android:layout_height="wrap_content"
             android:background="@color/primaryDarkColor"
             android:textAppearance="?attr/textAppearanceBody1"
-            android:maxLines="@integer/counter_min_line"
-            android:ellipsize="end"
             android:padding="@dimen/common_padding_min"
             android:textStyle="bold"
             android:text="@string/whatsapp"
@@ -93,8 +90,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/common_padding_min_xs"
-                    android:ellipsize="end"
-                    android:maxLines="@integer/counter_min_line"
                     android:padding="@dimen/common_padding_min_xs"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textStyle="bold"
@@ -107,8 +102,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/common_padding_min_xs"
-                    android:ellipsize="end"
-                    android:maxLines="@integer/counter_min_line"
                     android:padding="@dimen/common_padding_min_xs"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textStyle="bold"
@@ -121,8 +114,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/common_padding_min_xs"
-                    android:ellipsize="end"
-                    android:maxLines="@integer/counter_min_line"
                     android:padding="@dimen/common_padding_min_xs"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textStyle="bold"
@@ -130,7 +121,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tvCity"
                     tools:text="Phone 12" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnInformation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

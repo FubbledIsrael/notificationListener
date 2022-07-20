@@ -7,6 +7,8 @@
         tools:context=".dataAdModule.view.DataAdFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/common_padding_min"
+        android:paddingVertical="@dimen/common_padding_min"
         android:background="@color/gray">
 
         <include
@@ -14,9 +16,6 @@
             layout="@layout/data_ad_card"
             android:layout_width="@dimen/common_padding_none"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_padding_min"
-            android:layout_marginBottom="@dimen/common_padding_min_xs"
-            android:layout_marginHorizontal="@dimen/common_padding_min"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -27,8 +26,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/common_padding_min"
-            android:layout_marginBottom="@dimen/common_padding_middle"
-            android:layout_marginHorizontal="@dimen/common_padding_min"
             app:layout_constraintTop_toBottomOf="@+id/cardDataAd"/>
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -36,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            android:progressTint="@color/primaryColor"
+            android:progressTint="@color/secondaryColor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

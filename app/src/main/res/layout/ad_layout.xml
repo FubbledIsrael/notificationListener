@@ -52,7 +52,6 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common_padding_min"
                 app:layout_constraintTop_toBottomOf="@+id/tilId"
                 app:errorEnabled="true">
 
@@ -70,7 +69,6 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/secondaryColor"
                 android:text="@string/cancel"
-                android:paddingHorizontal="@dimen/common_padding_middle"
                 android:layout_marginTop="@dimen/common_padding_min"
                 android:layout_marginHorizontal="@dimen/common_padding_default"
                 app:cornerRadius="@dimen/common_padding_min"
@@ -82,7 +80,6 @@
                 android:layout_width="@dimen/common_padding_none"
                 android:layout_height="wrap_content"
                 android:text="@string/accept"
-                android:paddingHorizontal="@dimen/common_padding_middle"
                 android:layout_marginTop="@dimen/common_padding_min"
                 android:layout_marginHorizontal="@dimen/common_padding_default"
                 app:cornerRadius="@dimen/common_padding_min"
@@ -90,5 +87,4 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
-
 </com.google.android.material.card.MaterialCardView>

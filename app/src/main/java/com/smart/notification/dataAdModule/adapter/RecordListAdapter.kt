@@ -1,4 +1,4 @@
-package com.smart.notification.common.adapters
+package com.smart.notification.dataAdModule.adapter
 
 import android.view.LayoutInflater
 import android.view.View

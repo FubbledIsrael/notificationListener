@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.smart.notification.R
-import com.smart.notification.common.adapters.RecordListAdapter
+import com.smart.notification.dataAdModule.adapter.RecordListAdapter
 import com.smart.notification.common.utils.Constants
 import com.smart.notification.dataAdModule.viewModel.DataAdViewModel
 import com.smart.notification.databinding.FragmentDataAdBinding
@@ -49,11 +49,11 @@ class DataAdFragment : Fragment(R.layout.fragment_data_ad) {
         mDataAdBinding.cardRecordAd.recycleView.apply {
             adapter = mAdapterRecord
             layoutManager = LinearLayoutManager(requireContext())
-            setHasFixedSize(false)
+            setHasFixedSize(Constants.HIDE)
         }
 
         mActivity = activity as? MainActivity
-        mActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        mActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(Constants.SHOW)
 
         mActivity?.showRecyclerView(Constants.HIDE, Constants.HIDE)
     }
@@ -107,7 +107,7 @@ class DataAdFragment : Fragment(R.layout.fragment_data_ad) {
                 .setNegativeButton(R.string.cancel){    dialog, _ ->
                     dialog.dismiss()
                 }
-                .setCancelable(false)
+                .setCancelable(Constants.HIDE)
                 .show()
         }
     }
@@ -126,10 +126,6 @@ class DataAdFragment : Fragment(R.layout.fragment_data_ad) {
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
     }
 
     override fun onDestroy() {

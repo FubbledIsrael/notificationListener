@@ -1,4 +1,4 @@
-package com.smart.notification.common.adapters
+package com.smart.notification.mainModule.adapter
 
 import com.smart.notification.common.entities.AdEntity
 
