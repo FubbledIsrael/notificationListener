@@ -25,6 +25,9 @@ interface AdDao {
     @Query("SELECT COUNT(*) FROM AdEntity")
     fun getCount(): LiveData<Int>
 
+    @Query("UPDATE AdEntity SET phone = :phone, device = :device, city = :city, id_city = :id_city, classification = :classification, lastUpdate = :lastUpdate, expired = :expired, status = :status WHERE id = :id")
+    suspend fun updateById(phone: String, device: String, city: String, id_city: Int, classification: String, lastUpdate: String, expired: String, status: Int, id: Int): Int
+
     @Insert
     suspend fun add(ad: AdEntity): Long
 

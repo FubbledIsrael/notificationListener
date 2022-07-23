@@ -41,7 +41,7 @@ class ModelRoom {
 
     suspend fun updateAd(ad: AdEntity) = withContext(Dispatchers.IO){
         try {
-            adDao.upgrade(ad)
+            adDao.updateById(ad.phone, ad.device, ad.city, ad.id_city, ad.classification, ad.lastUpdate, ad.expired, ad.status, ad.id)
         } catch (e: Exception){
             println(e.message)
             throw Exception(TypeError.UPDATE.name)

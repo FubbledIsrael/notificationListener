@@ -21,12 +21,20 @@ class SettingsPreference(context: Context) {
         storage.edit().putInt(key, value).apply()
     }
 
+    fun setValue(key: String, value: Long){
+        storage.edit().putLong(key, value).apply()
+    }
+
     fun getStringValue(key: String): String?{
         return storage.getString(key, null)
     }
 
     fun getIntValue(key: String): Int{
         return storage.getInt(key, 0)
+    }
+
+    fun getLongValue(key: String): Long{
+        return storage.getLong(key, 0L)
     }
 
     fun removeValue(key: String){

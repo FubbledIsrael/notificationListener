@@ -34,7 +34,7 @@ class NotificationListener: NotificationListenerService(){
         }
     }
 
-    override fun onNotificationRemoved(sbn: StatusBarNotification?) {
+    /*override fun onNotificationRemoved(sbn: StatusBarNotification?) {
         super.onNotificationRemoved(sbn)
 
         val pack = sbn?.packageName
@@ -45,5 +45,5 @@ class NotificationListener: NotificationListenerService(){
             intent.putExtra(Parameter.POST_PARAM.value, Constants.ON_STATUS)
             sendBroadcast(intent)
         }
-    }
+    }*/
 }

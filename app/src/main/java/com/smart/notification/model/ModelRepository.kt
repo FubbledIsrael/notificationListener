@@ -3,6 +3,7 @@ package com.smart.notification.model
 import androidx.lifecycle.LiveData
 import com.smart.notification.common.entities.AdEntity
 import com.smart.notification.common.entities.RecordEntity
+import com.smart.notification.common.utils.Parameter
 import com.smart.notification.common.utils.TypeError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -21,7 +22,7 @@ class ModelRepository {
     //Functions Device
     fun getDevice(): String? = settings.getDevice()
     fun getApplication(key: String): Int = settings.getApplication(key)
-    fun getNotificationByPackage(id: Int): Int = settings.getNotificationByPackage(id)
+    //fun getNotificationByPackage(id: Int): Int = settings.getNotificationByPackage(id)
 
     suspend fun saveDevice(device: String) = withContext(Dispatchers.IO){
         if(device.isNotEmpty())
@@ -41,6 +42,25 @@ class ModelRepository {
     suspend fun removeApplication(key: String) = withContext(Dispatchers.IO){
         try {
             settings.removeApplication(key)
+        } catch (e: Exception){
+            throw Exception(TypeError.DELETE.name)
+        }
+    }
+
+    //Functions Last Time
+    fun getLastTime(): Long = settings.getLastTime()
+
+    suspend fun saveLastTime(time: Long) = withContext(Dispatchers.IO){
+        try {
+            settings.saveLastTime(time)
+        } catch (e: Exception){
+            throw Exception(TypeError.INSERT.name)
+        }
+    }
+
+    suspend fun removeLastTime() = withContext(Dispatchers.IO){
+        try {
+            settings.removeLastTime()
         } catch (e: Exception){
             throw Exception(TypeError.DELETE.name)
         }

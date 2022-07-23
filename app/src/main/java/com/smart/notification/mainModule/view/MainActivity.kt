@@ -208,29 +208,27 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
     class ReceiveBroadcastReceiver(private val activity: MainActivity) : BroadcastReceiver() {
 
         override fun onReceive(context: Context?, intent: Intent) {
+            //val post = intent.getIntExtra(Parameter.POST_PARAM.value, Constants.OFF_STATUS)
             val phone = intent.getStringExtra(Parameter.PHONE_PARAM.value).toString()
-            val post = intent.getIntExtra(Parameter.POST_PARAM.value, Constants.OFF_STATUS)
             val pack = intent.getStringExtra(Parameter.PACKAGE_PARAM.value).toString()
+            val time = intent.getLongExtra(Parameter.TIME_PARAM.value, 0L)
             val id = activity.mMainViewModel.getApplication(pack)
+            val lastTime = activity.mMainViewModel.getLasTime()
 
-            if (isValidPhoneNumber(phone)) {
-                val time = intent.getLongExtra(Parameter.TIME_PARAM.value, 0L)
+            if (isValidPhoneNumber(phone) && id != 0 && time != lastTime) {
+                val record = RecordEntity(
+                    phone = phone,
+                    time = time,
+                    id_ad = id,
+                    status = Constants.OFF_STATUS
+                )
+                val device = if(activity.mMainViewModel.getDevice().isNullOrEmpty()) activity.getString(R.string.device) else activity.mMainViewModel.getDevice()
 
-                if(id != 0) {
-                    val record = RecordEntity(
-                        phone = phone,
-                        time = time,
-                        id_ad = id,
-                        status = Constants.OFF_STATUS
-                    )
-                    val device = if(activity.mMainViewModel.getDevice().isNullOrEmpty()) activity.getString(R.string.device) else activity.mMainViewModel.getDevice()
-
-                    activity.registerPhone(record, device!!)
-                }
+                activity.registerPhone(record, device!!)
             }
-            else if(post == Constants.ON_STATUS)
+            /*else if(post == Constants.ON_STATUS)
                 if(id != 0)
-                    activity.mMainViewModel.removeRecordAd(id)
+                    activity.mMainViewModel.removeRecordAd(id)*/
         }
     }
 
@@ -307,13 +305,8 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
                         val dataJson = jsonObject.optString(Parameter.DATA_PARAM.value)
                         val ad = Gson().fromJson(dataJson , AdEntity::class.java)
 
-                        record.status = Constants.ON_STATUS
-                        mMainViewModel.saveRecord(record)
-
-                        val appCurrent = mMainViewModel.getNotificationByPackage(ad.id)
-                        ad.app = appCurrent
-                        if(appCurrent != 0)
-                            mMainViewModel.updateAd(ad)
+                        mMainViewModel.updateRecord(record)
+                        mMainViewModel.updateAd(ad)
                     }
                 }catch (e: Exception){
                     mMainViewModel.saveRecord(record)
