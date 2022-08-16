@@ -22,7 +22,7 @@ class ModelRepository {
     //Functions Device
     fun getDevice(): String? = settings.getDevice()
     fun getApplication(key: String): Int = settings.getApplication(key)
-    //fun getNotificationByPackage(id: Int): Int = settings.getNotificationByPackage(id)
+    fun getNotificationByPackage(id: Int): Int = settings.getNotificationByPackage(id)
 
     suspend fun saveDevice(device: String) = withContext(Dispatchers.IO){
         if(device.isNotEmpty())
@@ -61,6 +61,25 @@ class ModelRepository {
     suspend fun removeLastTime() = withContext(Dispatchers.IO){
         try {
             settings.removeLastTime()
+        } catch (e: Exception){
+            throw Exception(TypeError.DELETE.name)
+        }
+    }
+
+    //Functions Last Phone
+    fun getLastPhone(): String? = settings.getLastPhone()
+
+    suspend fun saveLastPhone(phone: String) = withContext(Dispatchers.IO){
+        try {
+            settings.saveLastPhone(phone)
+        } catch (e: Exception){
+            throw Exception(TypeError.INSERT.name)
+        }
+    }
+
+    suspend fun removeLastPhone() = withContext(Dispatchers.IO){
+        try {
+            settings.removeLastPhone()
         } catch (e: Exception){
             throw Exception(TypeError.DELETE.name)
         }

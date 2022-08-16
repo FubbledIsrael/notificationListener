@@ -35,7 +35,7 @@ class ModelSettings {
     //Application
     fun getApplication(key: String): Int = settings.getIntValue(key)
 
-    /*fun getNotificationByPackage(id: Int): Int{
+    fun getNotificationByPackage(id: Int): Int{
         var code = InterceptedNotificationCode.UNKNOWN.ordinal
 
         if(id == settings.getIntValue(ApplicationPackageName.WHATSAPP_PACK_NAME.value))
@@ -44,7 +44,7 @@ class ModelSettings {
             code = InterceptedNotificationCode.WHATSAPP_BUSINESS_CODE.ordinal
 
         return code
-    }*/
+    }
 
     suspend fun saveApplication(key: String, application: Int) = withContext(Dispatchers.IO){
         try {
@@ -76,6 +76,26 @@ class ModelSettings {
     suspend fun removeLastTime() = withContext(Dispatchers.IO){
         try {
             settings.removeValue(Parameter.TIME_PARAM.value)
+        } catch (e: Exception){
+            throw Exception(TypeError.DELETE.name)
+        }
+    }
+
+
+    //Last Time
+    fun getLastPhone(): String? = settings.getStringValue(Parameter.PHONE_PARAM.value)
+
+    suspend fun saveLastPhone(phone: String) = withContext(Dispatchers.IO){
+        try {
+            settings.setValue(Parameter.PHONE_PARAM.value, phone)
+        } catch (e: Exception){
+            throw Exception(TypeError.INSERT.name)
+        }
+    }
+
+    suspend fun removeLastPhone() = withContext(Dispatchers.IO){
+        try {
+            settings.removeValue(Parameter.PHONE_PARAM.value)
         } catch (e: Exception){
             throw Exception(TypeError.DELETE.name)
         }

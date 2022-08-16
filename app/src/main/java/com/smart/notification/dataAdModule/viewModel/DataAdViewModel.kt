@@ -40,7 +40,7 @@ class DataAdViewModel: ViewModel() {
     fun removeRecordAd(){
         executeAction{
             repository.removeRecordAd(idAd)
-            repository.removeLastTime()
+            repository.removeLastPhone()
         }
     }
 

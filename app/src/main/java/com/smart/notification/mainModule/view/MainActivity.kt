@@ -110,14 +110,6 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
         mMainViewModel.getProgressBar().observe(this){      flag ->
             mBinding.progressBar.visibility = if(flag) View.VISIBLE else View.GONE
         }
-
-        mMainViewModel.getRecordByStatus(Constants.OFF_STATUS).observe(this){   recordList ->
-            val device = if(mMainViewModel.getDevice().isNullOrEmpty()) getString(R.string.device) else mMainViewModel.getDevice()
-
-           recordList.forEach {    record ->
-                registerPhone(record, device!!)
-            }
-        }
     }
 
     private fun setupButtons() {
@@ -208,14 +200,16 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
     class ReceiveBroadcastReceiver(private val activity: MainActivity) : BroadcastReceiver() {
 
         override fun onReceive(context: Context?, intent: Intent) {
-            //val post = intent.getIntExtra(Parameter.POST_PARAM.value, Constants.OFF_STATUS)
             val phone = intent.getStringExtra(Parameter.PHONE_PARAM.value).toString()
             val pack = intent.getStringExtra(Parameter.PACKAGE_PARAM.value).toString()
             val time = intent.getLongExtra(Parameter.TIME_PARAM.value, 0L)
             val id = activity.mMainViewModel.getApplication(pack)
-            val lastTime = activity.mMainViewModel.getLasTime()
+            val lastPhone = activity.mMainViewModel.getLasPhone()
 
-            if (isValidPhoneNumber(phone) && id != 0 && time != lastTime) {
+            if(isValidPhoneNumber(phone))
+                activity.mMainViewModel.saveLastPhone(phone)
+
+            if (isValidPhoneNumber(phone) && id != 0 && phone != lastPhone) {
                 val record = RecordEntity(
                     phone = phone,
                     time = time,
@@ -224,11 +218,9 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
                 )
                 val device = if(activity.mMainViewModel.getDevice().isNullOrEmpty()) activity.getString(R.string.device) else activity.mMainViewModel.getDevice()
 
+                activity.mMainViewModel.updateRecord(record)
                 activity.registerPhone(record, device!!)
             }
-            /*else if(post == Constants.ON_STATUS)
-                if(id != 0)
-                    activity.mMainViewModel.removeRecordAd(id)*/
         }
     }
 
@@ -268,11 +260,12 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
                     else
                         Toast.makeText(this, R.string.error_id_invalid, Toast.LENGTH_SHORT).show()
                 }catch (e: Exception){
+                    println(e.toString())
                     Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
                 }
             },
             {   volleyError ->
-                Toast.makeText(this, getString(R.string.warning) + ": " + volleyError.message, Toast.LENGTH_SHORT).show()
+                println(volleyError.toString())
             }){
             override fun getParams(): Map<String, String> {
                 val params = HashMap<String, String>()
@@ -315,7 +308,7 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
             },
             {   volleyError ->
                 mMainViewModel.saveRecord(record)
-                Toast.makeText(this, getString(R.string.warning) + ": " + volleyError.message, Toast.LENGTH_SHORT).show()
+                println(volleyError.toString())
             }){
             override fun getParams(): Map<String, String> {
                 val params = HashMap<String, String>()

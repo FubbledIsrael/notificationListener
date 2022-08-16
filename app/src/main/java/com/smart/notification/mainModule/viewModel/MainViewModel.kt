@@ -28,8 +28,9 @@ class MainViewModel: ViewModel() {
 
     fun getDevice() = repository.getDevice()
     fun getLasTime() = repository.getLastTime()
+    fun getLasPhone() = repository.getLastPhone()
     fun getApplication(key: String) = repository.getApplication(key)
-    //fun getNotificationByPackage(id: Int): Int = repository.getNotificationByPackage(id)
+    fun getNotificationByPackage(id: Int): Int = repository.getNotificationByPackage(id)
     fun getAdAll() = repository.getAdAll()
     fun getAdCount() = repository.getAdCount()
     fun getRecordByStatus(status: Int) = repository.getRecordByStatus(status)
@@ -65,14 +66,19 @@ class MainViewModel: ViewModel() {
             repository.removeAd(ad)
             repository.removeApplication(getPackageByCode(ad.app).value)
             repository.removeRecordAd(ad.id)
-            repository.removeLastTime()
+            repository.removeLastPhone()
         }
     }
 
     fun saveRecord(record: RecordEntity){
         executeAction {
             repository.saveRecord(record)
-            repository.saveLastTime(record.time)
+        }
+    }
+
+    fun saveLastPhone(phone: String){
+        executeAction {
+            repository.saveLastPhone(phone)
         }
     }
 
@@ -80,15 +86,14 @@ class MainViewModel: ViewModel() {
         executeAction {
             record.status = Constants.ON_STATUS
             repository.saveRecord(record)
-            repository.saveLastTime(record.time)
         }
     }
 
-    /*fun removeRecordAd(id: Int){
+    fun removeRecordAd(id: Int){
         executeAction{
             repository.removeRecordAd(id)
         }
-    }*/
+    }
 
     private fun executeAction(block: suspend () -> Unit): Job {
         return  viewModelScope.launch {

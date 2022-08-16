@@ -28,8 +28,7 @@ class NotificationListener: NotificationListenerService(){
             val intent = Intent(ApplicationPackageName.APP_PACK_NAME.value)
             intent.putExtra(Parameter.PHONE_PARAM.value, sbn.notification.extras.getString(Notification.EXTRA_TITLE))
             intent.putExtra(Parameter.PACKAGE_PARAM.value, pack)
-            intent.putExtra(Parameter.TIME_PARAM.value, System.currentTimeMillis())
-            intent.putExtra(Parameter.POST_PARAM.value, Constants.OFF_STATUS)
+            intent.putExtra(Parameter.TIME_PARAM.value, sbn.postTime)
             sendBroadcast(intent)
         }
     }
