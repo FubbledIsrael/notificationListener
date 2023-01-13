@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.4" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -23,7 +23,7 @@
             android:textAppearance="?attr/textAppearanceBody1"
             android:padding="@dimen/common_padding_min"
             android:textStyle="bold"
-            android:text="@string/whatsapp"
+            tools:text="@string/app"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +37,7 @@
             android:padding="@dimen/common_padding_min"
             app:layout_constraintEnd_toStartOf="@id/icDelete"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/app_name"/>
+            android:contentDescription="@string/ad"/>
 
         <ImageButton
             android:id="@+id/icDelete"
@@ -52,14 +52,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/tvApplication"
-            android:contentDescription="@string/app_name"/>
+            android:contentDescription="@string/ad_removed"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/moreInformation"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvApplication">
+                app:layout_constraintTop_toBottomOf="@+id/tvApplication"
+                android:clickable="true"
+                android:focusable="true">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvId"
@@ -71,7 +72,7 @@
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="#06" />
+                    tools:text="@string/id" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvCity"
@@ -83,7 +84,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/tvClassification"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Tijuana" />
+                    tools:text="@string/city" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvClassification"
@@ -95,7 +96,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="C" />
+                    tools:text="@string/classification" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvPhone"
@@ -107,7 +108,7 @@
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvId"
-                    tools:text="664 479 4560" />
+                    tools:text="@string/phone" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvDevice"
@@ -119,17 +120,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvCity"
-                    tools:text="Phone 12" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnInformation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/information"
-                    android:textSize="11sp"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvDevice"/>
+                    tools:text="@string/device" />
             </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
