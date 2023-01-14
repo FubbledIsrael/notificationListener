@@ -21,12 +21,20 @@ class ModelRepository {
 
     //Functions Device
     fun getDevice(): String? = settings.getDevice()
+    fun getHost(): String? = settings.getHost()
     fun getApplication(key: String): Int = settings.getApplication(key)
     fun getNotificationByPackage(id: Int): Int = settings.getNotificationByPackage(id)
 
     suspend fun saveDevice(device: String) = withContext(Dispatchers.IO){
         if(device.isNotEmpty())
             settings.saveDevice(device)
+        else
+            throw Exception(TypeError.EMPTY.name)
+    }
+
+    suspend fun saveHost(host: String) = withContext(Dispatchers.IO){
+        if(host.isNotEmpty())
+            settings.saveHost(host)
         else
             throw Exception(TypeError.EMPTY.name)
     }

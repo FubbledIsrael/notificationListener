@@ -28,6 +28,7 @@ import com.smart.notification.common.entities.AdEntity
 import com.smart.notification.common.entities.RecordEntity
 import com.smart.notification.common.service.AdDialog
 import com.smart.notification.common.service.DeviceDialog
+import com.smart.notification.common.service.HostDialog
 import com.smart.notification.common.utils.*
 import com.smart.notification.dataAdModule.view.DataAdFragment
 import com.smart.notification.dataAdModule.viewModel.DataAdViewModel
@@ -100,15 +101,10 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
             }
 
             mAdapter.submitList(adList)
-            mBinding.progressBar.visibility = View.GONE
         }
 
         mMainViewModel.getAdCount().observe(this){  total ->
             mBinding.btnAdd.visibility = if(total == 2) View.GONE else View.VISIBLE
-        }
-
-        mMainViewModel.getProgressBar().observe(this){      flag ->
-            mBinding.progressBar.visibility = if(flag) View.VISIBLE else View.GONE
         }
     }
 
@@ -131,7 +127,7 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
-            R.id.action_edit -> {
+            R.id.action_edit_device -> {
                 DeviceDialog(
                     device = mMainViewModel.getDevice(),
                     onSubmitClickListener = {   name ->
@@ -139,6 +135,16 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
                         supportActionBar?.title = name
                     }
                 ).show(supportFragmentManager, Parameter.DEVICE_PARAM.value)
+                return true
+            }
+            R.id.action_edit_url -> {
+                HostDialog(
+                    url = mMainViewModel.getHost(),
+                    onSubmitClickListener = {   name ->
+                        mMainViewModel.updateHost(name)
+                        supportActionBar?.title = name
+                    }
+                ).show(supportFragmentManager, Parameter.HOST_PARAM.value)
                 return true
             }
             else -> super.onOptionsItemSelected(item)
@@ -204,22 +210,18 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
             val pack = intent.getStringExtra(Parameter.PACKAGE_PARAM.value).toString()
             val time = intent.getLongExtra(Parameter.TIME_PARAM.value, 0L)
             val id = activity.mMainViewModel.getApplication(pack)
-            val lastPhone = activity.mMainViewModel.getLasPhone()
 
-            if(isValidPhoneNumber(phone))
-                activity.mMainViewModel.saveLastPhone(phone)
-
-            if (isValidPhoneNumber(phone) && id != 0 && phone != lastPhone) {
+            if (isValidPhoneNumber(phone)) {
                 val record = RecordEntity(
                     phone = phone,
                     time = time,
                     id_ad = id,
                     status = Constants.OFF_STATUS
                 )
-                val device = if(activity.mMainViewModel.getDevice().isNullOrEmpty()) activity.getString(R.string.device) else activity.mMainViewModel.getDevice()
+                val host = if(activity.mMainViewModel.getHost().isNullOrEmpty()) Parameter.DEFAULT_LOAD_URL.value else activity.mMainViewModel.getHost()
 
-                activity.mMainViewModel.updateRecord(record)
-                activity.registerPhone(record, device!!)
+                activity.mMainViewModel.saveRecord(record)
+                activity.registerPhone(record, host!!)
             }
         }
     }
@@ -284,8 +286,7 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
         Application.volleyAPI.addToRequestQueue(stringRequest)
     }
 
-    private fun registerPhone(record: RecordEntity, device: String){
-        val url = Parameter.BASE_URL.value + Parameter.CONTROLLER_PATH.value + Parameter.RECORD_PATH_FILE.value
+    private fun registerPhone(record: RecordEntity,  url: String){
 
         val stringRequest = object : StringRequest(
             Method.POST, url,
@@ -294,20 +295,13 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
                     val jsonObject = JSONObject(response)
                     val error = jsonObject.optInt(Parameter.ERROR_PARAM.value)
 
-                    if(error == 0 || error == 1){
-                        val dataJson = jsonObject.optString(Parameter.DATA_PARAM.value)
-                        val ad = Gson().fromJson(dataJson , AdEntity::class.java)
-
+                    if(error == 0)
                         mMainViewModel.updateRecord(record)
-                        mMainViewModel.updateAd(ad)
-                    }
                 }catch (e: Exception){
-                    mMainViewModel.saveRecord(record)
                     Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
                 }
             },
             {   volleyError ->
-                mMainViewModel.saveRecord(record)
                 println(volleyError.toString())
             }){
             override fun getParams(): Map<String, String> {
@@ -316,7 +310,6 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
                 params[Parameter.ID_PARAM.value] = record.id_ad.toString()
                 params[Parameter.PHONE_PARAM.value] = record.phone
                 params[Parameter.TIME_PARAM.value] = record.time.toString()
-                params[Parameter.DEVICE_PARAM.value] = device
                 return params
             }
         }

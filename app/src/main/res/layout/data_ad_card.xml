@@ -44,7 +44,7 @@
             android:id="@+id/tvId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="#123"
+            tools:text="@string/id"
             android:layout_marginStart="@dimen/common_padding_min_xs"
             android:textAppearance="?attr/textAppearanceBody2"
             android:padding="@dimen/common_padding_min_xs"
@@ -67,7 +67,7 @@
             android:id="@+id/tvClassification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="A"
+            tools:text="@string/classification"
             android:layout_marginEnd="@dimen/common_padding_min_xs"
             android:textAppearance="?attr/textAppearanceBody2"
             android:padding="@dimen/common_padding_min_xs"
@@ -79,7 +79,7 @@
             android:id="@+id/tvPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="(664) 479 4560"
+            tools:text="@string/phone"
             android:textAppearance="?attr/textAppearanceBody2"
             android:padding="@dimen/common_padding_min_xs"
             android:layout_marginStart="@dimen/common_padding_min_xs"
@@ -91,60 +91,12 @@
             android:id="@+id/tvDevice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Phone 12"
+            tools:text="@string/device"
             android:textAppearance="?attr/textAppearanceBody2"
             android:padding="@dimen/common_padding_min_xs"
             android:layout_marginEnd="@dimen/common_padding_min_xs"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvClassification"
             android:textStyle="bold"/>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/textExpired"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/common_padding_min_xs"
-            android:layout_marginStart="@dimen/common_padding_min_xs"
-            android:textAppearance="?attr/textAppearanceBody2"
-            android:textStyle="bold"
-            android:textColor="@color/primaryDarkColor"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDevice"
-            android:text="@string/expired" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvExpired"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/common_padding_min_xs"
-            android:textAppearance="?attr/textAppearanceCaption"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/textExpired"
-            app:layout_constraintStart_toEndOf="@+id/textExpired"
-            tools:text="20 mayo 2022" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/textLastUpdate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/common_padding_min_xs"
-            android:textAppearance="?attr/textAppearanceBody2"
-            android:textStyle="bold"
-            android:layout_marginStart="@dimen/common_padding_min_xs"
-            android:textColor="@color/primaryDarkColor"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textExpired"
-            android:text="@string/last_update" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvLastUpdate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/common_padding_min_xs"
-            android:textAppearance="?attr/textAppearanceCaption"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/textLastUpdate"
-            app:layout_constraintBottom_toBottomOf="@+id/textLastUpdate"
-            tools:text="20 mayo 2022" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

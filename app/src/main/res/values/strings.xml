@@ -10,6 +10,8 @@
     <string name="business_whatsapp" translatable="false">WhatsApp Business</string>
     <string name="city">City</string>
     <string name="classification">Classification</string>
+    <string name="server_url">Server URL</string>
+    <string name="url" translatable="false">URL</string>
     <string name="last_chat">Last chat</string>
     <string name="chats" translatable="false">Chats</string>
     <string name="enter_id">Enter id</string>

@@ -32,6 +32,17 @@ class ModelSettings {
         }
     }
 
+    //Device
+    fun getHost(): String? = settings.getStringValue(Parameter.HOST_PARAM.value)
+
+    suspend fun saveHost(host: String) = withContext(Dispatchers.IO){
+        try {
+            settings.setValue(Parameter.HOST_PARAM.value, host)
+        } catch (e: Exception){
+            throw Exception(TypeError.INSERT.name)
+        }
+    }
+
     //Application
     fun getApplication(key: String): Int = settings.getIntValue(key)
 

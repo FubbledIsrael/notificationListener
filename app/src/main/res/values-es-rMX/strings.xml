@@ -9,6 +9,7 @@
     <string name="cancel">Cancelar</string>
     <string name="accept">Aceptar</string>
     <string name="phone">Telefono</string>
+    <string name="server_url">URL de Servidor</string>
     <string name="configuration">Configuracion</string>
     <string name="notice">Noticia</string>
     <string name="app">Aplicacion</string>

@@ -27,8 +27,7 @@ class MainViewModel: ViewModel() {
     }
 
     fun getDevice() = repository.getDevice()
-    fun getLasTime() = repository.getLastTime()
-    fun getLasPhone() = repository.getLastPhone()
+    fun getHost() = repository.getHost()
     fun getApplication(key: String) = repository.getApplication(key)
     fun getNotificationByPackage(id: Int): Int = repository.getNotificationByPackage(id)
     fun getAdAll() = repository.getAdAll()
@@ -45,6 +44,12 @@ class MainViewModel: ViewModel() {
     fun updateDevice(device: String){
         executeAction{
             repository.saveDevice(device)
+        }
+    }
+
+    fun updateHost(host: String){
+        executeAction{
+            repository.saveHost(host)
         }
     }
 

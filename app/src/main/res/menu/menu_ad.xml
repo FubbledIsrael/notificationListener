@@ -4,9 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_edit"
-        android:icon="@drawable/ic_edit"
+        android:id="@+id/action_edit_device"
+        android:icon="@drawable/ic_device"
         android:title="@string/edit"
+        android:contentDescription="@string/device_name"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_edit_url"
+        android:icon="@drawable/ic_link"
+        android:title="@string/server_url"
         android:contentDescription="@string/edit"
         app:showAsAction="ifRoom"/>
 </menu>

@@ -1,6 +1,7 @@
 package com.smart.notification.common.entities
 
 import android.telephony.PhoneNumberUtils
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
@@ -16,15 +17,12 @@ import java.util.*
 @Entity(tableName = "AdEntity", indices = [Index(value = ["app"], unique = true)])
 data class AdEntity(
     @PrimaryKey var id: Int = 0,
-    var phone: String = "",
-    var app: Int = 0,
-    var device: String = "",
-    var city: String = "",
-    var id_city: Int = 0,
-    var classification: String = "",
-    var lastUpdate: String = "",
-    var expired: String = "",
-    var status: Int = 0){
+    @ColumnInfo var phone: String = "",
+    @ColumnInfo var app: Int = 0,
+    @ColumnInfo var device: String = "",
+    @ColumnInfo var city: String = "",
+    @ColumnInfo var classification: String = "",
+    @ColumnInfo var status: Int = 0){
 
     fun formatPhone(): String = PhoneNumberUtils.formatNumber(this.phone, Locale.getDefault().country)
 }

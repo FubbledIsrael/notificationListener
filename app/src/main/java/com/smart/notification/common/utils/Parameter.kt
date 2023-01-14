@@ -9,6 +9,7 @@ package com.smart.notification.common.utils
  */
 enum class Parameter(val value: String) {
     BASE_URL("https://samsmx.com"),
+    DEFAULT_LOAD_URL("https://samsmx.com/controller/recordphone.php"),
     MEMBERS_PATH("/members"),
     CONTROLLER_PATH("/controller"),
     AD_PATH_FILE("/anuncios.php"),
@@ -17,6 +18,7 @@ enum class Parameter(val value: String) {
     GET_ID_PARAM("getId"),
     FUNCTION_PARAM("function"),
     DEVICE_PARAM("device"),
+    HOST_PARAM("host"),
     ERROR_PARAM("error"),
     DATA_PARAM("data"),
     PHONE_PARAM("phone"),

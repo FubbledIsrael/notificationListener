@@ -32,7 +32,7 @@
             android:id="@+id/icClean"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_refresh"
+            android:src="@drawable/ic_delete"
             android:padding="@dimen/common_padding_min_xs"
             android:background="@drawable/round_corner"
             android:visibility="gone"

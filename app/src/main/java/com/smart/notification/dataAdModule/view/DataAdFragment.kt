@@ -71,8 +71,6 @@ class DataAdFragment : Fragment(R.layout.fragment_data_ad) {
             mDataAdBinding.cardDataAd.tvClassification.text = adCurrent.classification
             mDataAdBinding.cardDataAd.tvPhone.text = adCurrent.formatPhone()
             mDataAdBinding.cardDataAd.tvDevice.text = adCurrent.device
-            mDataAdBinding.cardDataAd.tvExpired.text = adCurrent.expired.ifEmpty { getString(R.string.n_a) }
-            mDataAdBinding.cardDataAd.tvLastUpdate.text = adCurrent.lastUpdate.ifEmpty { getString(R.string.n_a) }
         }
 
         mDataAdViewModel.getRecordAll().observe(viewLifecycleOwner){    recordList ->

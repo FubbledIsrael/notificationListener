@@ -27,7 +27,7 @@ class AdListAdapter(private var listener: OnClickListenerAd) : ListAdapter<AdEnt
 
         fun setListener(ad: AdEntity){
             with(mBinding){
-                btnInformation.setOnClickListener {
+                moreInformation.setOnClickListener {
                     listener.onInformation(ad)
                 }
 
