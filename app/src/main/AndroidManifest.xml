@@ -21,7 +21,7 @@
 
         <activity
             android:name="com.smart.notification.mainModule.view.MainActivity"
-            android:screenOrientation="fullSensor"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

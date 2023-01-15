@@ -17,8 +17,6 @@ import com.smart.notification.common.utils.Constants
 @Database(
     entities = [AdEntity::class, RecordEntity::class],
     version = Constants.DB_VERSION,
-    autoMigrations = [
-        AutoMigration( from = 1, to = 2)],
     exportSchema = false)
 abstract class RoomAPI: RoomDatabase(){
     abstract fun adDao(): AdDao

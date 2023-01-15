@@ -3,7 +3,6 @@ package com.smart.notification.model
 import androidx.lifecycle.LiveData
 import com.smart.notification.common.entities.AdEntity
 import com.smart.notification.common.entities.RecordEntity
-import com.smart.notification.common.utils.Parameter
 import com.smart.notification.common.utils.TypeError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

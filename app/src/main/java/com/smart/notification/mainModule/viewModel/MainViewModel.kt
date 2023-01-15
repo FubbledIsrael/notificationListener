@@ -33,7 +33,6 @@ class MainViewModel: ViewModel() {
     fun getAdAll() = repository.getAdAll()
     fun getAdCount() = repository.getAdCount()
     fun getRecordByStatus(status: Int) = repository.getRecordByStatus(status)
-    fun getProgressBar() = progressBar
 
     fun saveDevice(device: String){
         executeAction{
@@ -102,13 +101,10 @@ class MainViewModel: ViewModel() {
 
     private fun executeAction(block: suspend () -> Unit): Job {
         return  viewModelScope.launch {
-            progressBar.value = Constants.SHOW
             try {
                 block()
             } catch (e: Exception){
                 println(e.message)
-            } finally {
-                progressBar.value = Constants.HIDE
             }
         }
     }

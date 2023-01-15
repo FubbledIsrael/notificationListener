@@ -67,6 +67,9 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
             setupDeviceSnack().show()
         else
             supportActionBar?.title = mMainViewModel.getDevice()
+
+        if(mMainViewModel.getHost().isNullOrEmpty())
+            mMainViewModel.updateHost(Parameter.DEFAULT_LOAD_URL.value)
     }
 
     //Setup
@@ -116,6 +119,17 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
                     getAd(ad.id.toString(), ad.app)
                 }
             ).show(supportFragmentManager, Parameter.AD_PARAM.value)
+        }
+
+        mBinding.swipeRefresh.setOnRefreshListener {
+
+            if(mMainViewModel.getApplication(ApplicationPackageName.WHATSAPP_PACK_NAME.value) != 0)
+                getUpdateAd(mMainViewModel.getApplication(ApplicationPackageName.WHATSAPP_PACK_NAME.value), InterceptedNotificationCode.WHATSAPP_CODE.ordinal)
+
+            if(mMainViewModel.getApplication(ApplicationPackageName.WHATSAPP_BUSINESS_PACK_NAME.value) != 0)
+                getUpdateAd(mMainViewModel.getApplication(ApplicationPackageName.WHATSAPP_BUSINESS_PACK_NAME.value), InterceptedNotificationCode.WHATSAPP_BUSINESS_CODE.ordinal)
+
+            mBinding.swipeRefresh.isRefreshing = false
         }
     }
 
@@ -218,23 +232,66 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
                     id_ad = id,
                     status = Constants.OFF_STATUS
                 )
-                val host = if(activity.mMainViewModel.getHost().isNullOrEmpty()) Parameter.DEFAULT_LOAD_URL.value else activity.mMainViewModel.getHost()
 
                 activity.mMainViewModel.saveRecord(record)
-                activity.registerPhone(record, host!!)
+                activity.registerPhone(record)
             }
         }
     }
 
-    //Load Ad on Server
-    private fun getAd(id: String, appCode: Int){
-        val url = Parameter.BASE_URL.value + Parameter.CONTROLLER_PATH.value + Parameter.AD_PATH_FILE.value
+    private fun getUpdateAd(id: Int, appCode: Int){
+        val url = if(mMainViewModel.getHost().isNullOrEmpty()) Parameter.DEFAULT_LOAD_URL.value else mMainViewModel.getHost()
 
         val stringRequest = object : StringRequest(
             Method.POST, url,
             { response ->
-                mMainViewModel.setProgressBar(Constants.HIDE)
                 try {
+                    println(response)
+                    val jsonObject = JSONObject(response)
+                    val error = jsonObject.optInt(Parameter.ERROR_PARAM.value)
+
+                    if(error == 0){
+                        val dataJson = jsonObject.optString(Parameter.DATA_PARAM.value)
+                        val ad = Gson().fromJson(dataJson , AdEntity::class.java)
+
+                        ad.app = appCode
+                        mMainViewModel.updateAd(ad)
+                    }
+                }catch (e: Exception){
+                    println(e.toString())
+                    Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
+                }
+            },
+            {   volleyError ->
+                println(volleyError.toString())
+            }){
+            override fun getParams(): Map<String, String> {
+                val params = HashMap<String, String>()
+                params[Parameter.FUNCTION_PARAM.value] = Parameter.POST_ID_PARAM.value
+                params[Parameter.CONTROLLER_PARAM.value] = Parameter.AD_PARAM.value
+                params[Parameter.ID_PARAM.value] = id.toString()
+                return params
+            }
+        }
+
+        stringRequest .retryPolicy = DefaultRetryPolicy(
+            DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+            0,
+            1f
+        )
+
+        Application.volleyAPI.addToRequestQueue(stringRequest)
+    }
+
+    //Load Ad on Server
+    private fun getAd(id: String, appCode: Int){
+        val url = if(mMainViewModel.getHost().isNullOrEmpty()) Parameter.DEFAULT_LOAD_URL.value else mMainViewModel.getHost()
+
+        val stringRequest = object : StringRequest(
+            Method.POST, url,
+            { response ->
+                try {
+                    println(response)
                     val jsonObject = JSONObject(response)
                     val error = jsonObject.optInt(Parameter.ERROR_PARAM.value)
 
@@ -271,7 +328,8 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
             }){
             override fun getParams(): Map<String, String> {
                 val params = HashMap<String, String>()
-                params[Parameter.FUNCTION_PARAM.value] = Parameter.GET_ID_PARAM.value
+                params[Parameter.FUNCTION_PARAM.value] = Parameter.POST_ID_PARAM.value
+                params[Parameter.CONTROLLER_PARAM.value] = Parameter.AD_PARAM.value
                 params[Parameter.ID_PARAM.value] = id
                 return params
             }
@@ -286,12 +344,14 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
         Application.volleyAPI.addToRequestQueue(stringRequest)
     }
 
-    private fun registerPhone(record: RecordEntity,  url: String){
+    private fun registerPhone(record: RecordEntity){
+        val url = if(mMainViewModel.getHost().isNullOrEmpty()) Parameter.DEFAULT_LOAD_URL.value else mMainViewModel.getHost()
 
         val stringRequest = object : StringRequest(
             Method.POST, url,
             { response ->
                 try {
+                    println(response)
                     val jsonObject = JSONObject(response)
                     val error = jsonObject.optInt(Parameter.ERROR_PARAM.value)
 
@@ -306,10 +366,10 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
             }){
             override fun getParams(): Map<String, String> {
                 val params = HashMap<String, String>()
-                params[Parameter.FUNCTION_PARAM.value] = Parameter.ADD_RECORD_PARAM.value
+                params[Parameter.FUNCTION_PARAM.value] = Parameter.POST_SAVE_PARAM.value
+                params[Parameter.CONTROLLER_PARAM.value] = Parameter.RECORD_PHONE_PARAM.value
                 params[Parameter.ID_PARAM.value] = record.id_ad.toString()
                 params[Parameter.PHONE_PARAM.value] = record.phone
-                params[Parameter.TIME_PARAM.value] = record.time.toString()
                 return params
             }
         }

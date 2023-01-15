@@ -13,6 +13,6 @@ object Constants {
     const val ON_STATUS = 1
     const val OFF_STATUS = 0
     const val DB_NAME = "ApplicationDatabase"
-    const val DB_VERSION = 2
+    const val DB_VERSION = 1
     const val SETTINGS_NAME = "SettingsPreferences"
 }

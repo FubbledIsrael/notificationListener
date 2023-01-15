@@ -16,13 +16,13 @@ import java.util.*
 
 @Entity(tableName = "AdEntity", indices = [Index(value = ["app"], unique = true)])
 data class AdEntity(
-    @PrimaryKey var id: Int = 0,
-    @ColumnInfo var phone: String = "",
+    @PrimaryKey val id: Int = 0,
+    @ColumnInfo val phone: String = "",
     @ColumnInfo var app: Int = 0,
-    @ColumnInfo var device: String = "",
-    @ColumnInfo var city: String = "",
-    @ColumnInfo var classification: String = "",
-    @ColumnInfo var status: Int = 0){
+    @ColumnInfo val device: String = "",
+    @ColumnInfo val city: String = "",
+    @ColumnInfo val classification: String = "",
+    @ColumnInfo val status: Int = 0){
 
     fun formatPhone(): String = PhoneNumberUtils.formatNumber(this.phone, Locale.getDefault().country)
 }
