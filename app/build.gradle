@@ -5,14 +5,14 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.smart.notification"
         minSdk 21
-        targetSdk 31
-        versionCode 7
-        versionName "1.6"
+        targetSdk 33
+        versionCode 9
+        versionName "1.8"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

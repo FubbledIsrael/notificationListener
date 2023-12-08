@@ -8,8 +8,8 @@ package com.smart.notification.common.utils
  * GitHub: https://github.com/FubbledIsrael
  */
 enum class Parameter(val value: String) {
-    BASE_URL("https://samsmx.com"),
-    DEFAULT_LOAD_URL("https://samsmx.com/controllers/app.php"),
+    BASE_URL("https://api.redcorporativa.com"),
+    DEFAULT_LOAD_URL("https://api.redcorporativa.com/app"),
     MEMBERS_PATH("/members"),
     CONTROLLER_PATH("/controller"),
     AD_PATH_FILE("/anuncios.php"),

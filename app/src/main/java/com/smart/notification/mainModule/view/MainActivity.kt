@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.DefaultRetryPolicy
+import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.smart.notification.R
 import com.smart.notification.databinding.ActivityMainBinding
@@ -156,7 +157,6 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
                     url = mMainViewModel.getHost(),
                     onSubmitClickListener = {   name ->
                         mMainViewModel.updateHost(name)
-                        supportActionBar?.title = name
                     }
                 ).show(supportFragmentManager, Parameter.HOST_PARAM.value)
                 return true
@@ -242,21 +242,14 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
     private fun getUpdateAd(id: Int, appCode: Int){
         val url = if(mMainViewModel.getHost().isNullOrEmpty()) Parameter.DEFAULT_LOAD_URL.value else mMainViewModel.getHost()
 
-        val stringRequest = object : StringRequest(
-            Method.POST, url,
+        val stringRequest = object : JsonObjectRequest(
+            Method.GET, "$url/$id", null,
             { response ->
                 try {
-                    println(response)
-                    val jsonObject = JSONObject(response)
-                    val error = jsonObject.optInt(Parameter.ERROR_PARAM.value)
-
-                    if(error == 0){
-                        val dataJson = jsonObject.optString(Parameter.DATA_PARAM.value)
-                        val ad = Gson().fromJson(dataJson , AdEntity::class.java)
-
-                        ad.app = appCode
-                        mMainViewModel.updateAd(ad)
-                    }
+                    val dataObject = response.getJSONObject(Parameter.DATA_PARAM.value)
+                    val ad = AdEntity(dataObject.getInt("id"), dataObject.getString("phone"), 0, dataObject.getString("device"), dataObject.getJSONObject("city").getString("name"), dataObject.getJSONObject("classification").getString("name"), dataObject.getJSONObject("status").getInt("id"))
+                    ad.app = appCode
+                    mMainViewModel.updateAd(ad)
                 }catch (e: Exception){
                     println(e.toString())
                     Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
@@ -264,15 +257,7 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
             },
             {   volleyError ->
                 println(volleyError.toString())
-            }){
-            override fun getParams(): Map<String, String> {
-                val params = HashMap<String, String>()
-                params[Parameter.FUNCTION_PARAM.value] = Parameter.POST_ID_PARAM.value
-                params[Parameter.CONTROLLER_PARAM.value] = Parameter.AD_PARAM.value
-                params[Parameter.ID_PARAM.value] = id.toString()
-                return params
-            }
-        }
+            }){}
 
         stringRequest .retryPolicy = DefaultRetryPolicy(
             DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
@@ -287,37 +272,31 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
     private fun getAd(id: String, appCode: Int){
         val url = if(mMainViewModel.getHost().isNullOrEmpty()) Parameter.DEFAULT_LOAD_URL.value else mMainViewModel.getHost()
 
-        val stringRequest = object : StringRequest(
-            Method.POST, url,
+        val stringRequest = object : JsonObjectRequest(
+            Method.GET, "$url/$id", null,
             { response ->
                 try {
-                    println(response)
-                    val jsonObject = JSONObject(response)
-                    val error = jsonObject.optInt(Parameter.ERROR_PARAM.value)
+                    val dataObject = response.getJSONObject(Parameter.DATA_PARAM.value)
 
-                    if(error == 0){
-                        val dataJson = jsonObject.optString(Parameter.DATA_PARAM.value)
-                        val ad = Gson().fromJson(dataJson , AdEntity::class.java)
+                    val ad = AdEntity(dataObject.getInt("id"), dataObject.getString("phone"), 0, dataObject.getString("device"), dataObject.getJSONObject("city").getString("name"), dataObject.getJSONObject("classification").getString("name"), dataObject.getJSONObject("status").getInt("id"))
 
-                        val items = arrayOf("# " + ad.id.toString(), getString(R.string.city) + ": " + ad.city, getString(R.string.classification) + ": " + ad.classification, getString(R.string.phone) + ": " + ad.formatPhone())
+                    val items = arrayOf("# " + ad.id.toString(), getString(R.string.city) + ": " + ad.city, getString(R.string.classification) + ": " + ad.classification, getString(R.string.phone) + ": " + ad.formatPhone())
 
-                        MaterialAlertDialogBuilder(this)
-                            .setTitle(R.string.data)
-                            .setItems(items){ _, _ ->
-                            }
-                            .setPositiveButton(R.string.accept) { dialog, _ ->
-                                ad.app = appCode
-                                mMainViewModel.saveAd(ad)
-                                dialog.dismiss()
-                            }
-                            .setNegativeButton(R.string.cancel) { dialog, _ ->
-                                dialog.dismiss()
-                            }
-                            .setCancelable(Constants.HIDE)
-                            .show()
-                    }
-                    else
-                        Toast.makeText(this, R.string.error_id_invalid, Toast.LENGTH_SHORT).show()
+                    MaterialAlertDialogBuilder(this)
+                        .setTitle(R.string.data)
+                        .setItems(items){ _, _ ->
+                        }
+                        .setPositiveButton(R.string.accept) { dialog, _ ->
+                            ad.app = appCode
+                            mMainViewModel.saveAd(ad)
+                            dialog.dismiss()
+                        }
+                        .setNegativeButton(R.string.cancel) { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .setCancelable(Constants.HIDE)
+                        .show()
+
                 }catch (e: Exception){
                     println(e.toString())
                     Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
@@ -325,15 +304,7 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
             },
             {   volleyError ->
                 println(volleyError.toString())
-            }){
-            override fun getParams(): Map<String, String> {
-                val params = HashMap<String, String>()
-                params[Parameter.FUNCTION_PARAM.value] = Parameter.POST_ID_PARAM.value
-                params[Parameter.CONTROLLER_PARAM.value] = Parameter.AD_PARAM.value
-                params[Parameter.ID_PARAM.value] = id
-                return params
-            }
-        }
+            }){}
 
         stringRequest .retryPolicy = DefaultRetryPolicy(
             DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
@@ -353,9 +324,10 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
                 try {
                     println(response)
                     val jsonObject = JSONObject(response)
-                    val error = jsonObject.optInt(Parameter.ERROR_PARAM.value)
+                    val dataObject = jsonObject.getJSONObject(Parameter.DATA_PARAM.value)
+                    val message = dataObject.getString("message")
 
-                    if(error == 0)
+                    if(message == "Guardado")
                         mMainViewModel.updateRecord(record)
                 }catch (e: Exception){
                     Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
@@ -366,9 +338,7 @@ class MainActivity : AppCompatActivity(), OnClickListenerAd {
             }){
             override fun getParams(): Map<String, String> {
                 val params = HashMap<String, String>()
-                params[Parameter.FUNCTION_PARAM.value] = Parameter.POST_SAVE_PARAM.value
-                params[Parameter.CONTROLLER_PARAM.value] = Parameter.RECORD_PHONE_PARAM.value
-                params[Parameter.ID_PARAM.value] = record.id_ad.toString()
+                params[Parameter.AD_PARAM.value] = record.id_ad.toString()
                 params[Parameter.PHONE_PARAM.value] = record.phone
                 return params
             }
